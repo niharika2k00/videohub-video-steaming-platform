@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 import api from "@/utils/api";
 import SharePopover from "@/components/SharePopover";
 import Skeleton from "react-loading-skeleton";
@@ -11,6 +12,7 @@ import rehypeRaw from "rehype-raw";
 
 export default function VideoPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [video, setVideo] = useState(null);
   const [error, setError] = useState(null);
 
@@ -73,6 +75,13 @@ export default function VideoPage() {
 
   return (
     <div className="container mx-auto px-6 py-10">
+      <button
+        onClick={() => navigate("/dashboard")}
+        className="mb-4 inline-flex items-center text-sm text-gray-600 hover:text-gray-900"
+      >
+        <ArrowLeft className="w-4 h-4 mr-1" />
+        Back to Dashboard
+      </button>
       <VideoPlayer src={masterManifestUrl} poster={poster} />
 
       <div className="mt-6">

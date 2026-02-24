@@ -33,7 +33,7 @@ const VideoCard = ({ video, onDelete, className }) => {
     <div
       className={cn(
         "group relative rounded-xl transition-transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/10 overflow-hidden",
-        className
+        className,
       )}
     >
       <Link to={`/video/${id}`} className="block">
@@ -45,7 +45,7 @@ const VideoCard = ({ video, onDelete, className }) => {
             alt={title}
             className={cn(
               "h-48 w-full object-cover transition-all duration-300",
-              imageLoading ? "opacity-0" : "opacity-100 group-hover:scale-105"
+              imageLoading ? "opacity-0" : "opacity-100 group-hover:scale-105",
             )}
           />
 
@@ -68,7 +68,7 @@ const VideoCard = ({ video, onDelete, className }) => {
           )}
         </div>
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
         <div className="absolute bottom-0 p-4 text-white">
           <h3 className="text-lg font-semibold line-clamp-1">{title}</h3>
           <span className="text-xs opacity-80">{category}</span>
@@ -82,7 +82,7 @@ const VideoCard = ({ video, onDelete, className }) => {
           e.stopPropagation();
           setShowDeleteDialog(true);
         }}
-        className="absolute top-2 right-3 p-1.5 bg-red-500 hover:bg-red-600 text-white rounded-md shadow-lg transition-colors duration-200 opacity-0 group-hover:opacity-100"
+        className="absolute top-2 right-3 z-20 p-1.5 bg-red-500 hover:bg-red-600 text-white rounded-md shadow-lg transition-colors duration-200 opacity-0 group-hover:opacity-100"
         title="Delete video"
       >
         <Trash2 size={18} />

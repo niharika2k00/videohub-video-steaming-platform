@@ -20,7 +20,7 @@ const App = () => {
   // Initialize Google Analytics only once
   useEffect(() => {
     try {
-      ReactGA.initialize("G-9E91P66ZVJ", { debug: true });
+      ReactGA.initialize("G-9E91P66ZVJ");
     } catch (error) {
       console.error("Failed to initialize Google Analytics:", error);
     }

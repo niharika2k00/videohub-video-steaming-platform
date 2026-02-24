@@ -90,6 +90,7 @@ const UploadVideoDialog = ({ onSuccess, children }) => {
     try {
       await api.post("/video/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
+        timeout: 300000, // 5 min timeout for video uploads
       });
       analytics.trackVideoUpload(data.title);
       toast.success("Video uploaded ✅");
@@ -121,7 +122,7 @@ const UploadVideoDialog = ({ onSuccess, children }) => {
             Upload Your Video
           </DialogTitle>
           <DialogDescription className="text-sm text-gray-500 mt-1">
-            All fields are required. Maximum file size: 150 MB
+            All fields are required. Maximum file size: 200 MB
           </DialogDescription>
         </DialogHeader>
 
