@@ -40,7 +40,7 @@ public class SecurityConfig {
 
   // Role hierarchy constants
   private static final class Roles {
-    static final String[] READ_ONLY = { "ROLE_VIEWER" };
+    static final String[] READ_ONLY = {"ROLE_VIEWER"};
     static final String[] WRITE_ACCESS = {
         "ROLE_USER",
         "ROLE_DEVELOPER",
@@ -76,7 +76,7 @@ public class SecurityConfig {
     http.authorizeHttpRequests(auth -> auth
         .requestMatchers(HttpMethod.GET, "/", "/api", "/api/test").permitAll()
         .requestMatchers(HttpMethod.POST, "/api/auth/register", "/api/auth/login", "/api/contact").permitAll()
-        .requestMatchers(HttpMethod.POST, "/api/upload/video", "/api/users/logout").authenticated()
+        .requestMatchers(HttpMethod.POST, "/api/video/upload", "/api/users/logout").authenticated()
 
         .requestMatchers(HttpMethod.GET, "/api/users", "/api/users/**", "/api/roles", "/api/roles/**", "/api/videos", "/api/videos/**").hasAnyAuthority(Roles.ALL_ROLES)
 

@@ -1,5 +1,5 @@
 # Start with a JDK base image
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jre-jammy
 
 # Install FFmpeg and curl
 RUN apt-get update && \
@@ -33,7 +33,7 @@ COPY target/*.jar app.jar
 COPY src/main/resources/email-templates/video-process-success-email.md /app/email-templates/video-process-success-email.md
 
 # Set JVM options that work on ALL platforms (Raspberry Pi, Linux, Mac, etc.)
-ENV JAVA_TOOL_OPTIONS="-XX:-UseContainerSupport -XX:MaxRAMPercentage=75.0 -XX:+DisableAttachMechanism -Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Dfile.encoding=UTF-8"
+ENV JAVA_TOOL_OPTIONS="-XX:MaxRAMPercentage=75.0 -XX:+DisableAttachMechanism -Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Dfile.encoding=UTF-8"
 
 # Run JAR with default config
 ENTRYPOINT exec java $JAVA_OPTS -jar app.jar

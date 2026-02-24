@@ -28,11 +28,9 @@ services:
       - "9093:9093" # For external access
     environment:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      # KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092 # when access internally from within the docker container
-      # KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
-      # KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
-
-      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:9092,EXTERNAL://100.88.115.16:9093
+      # kafka:9092 -> when access internally from within the docker container
+      # EXTERNAL=localhost:9093 for local dev; use machine IP (e.g. 100.88.115.16:9093) for remote clients.
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:9092,EXTERNAL://localhost:9093 # OR use 100.88.115.16:9093 -> public IP of the remote machine
       KAFKA_LISTENERS: INTERNAL://0.0.0.0:9092,EXTERNAL://0.0.0.0:9093
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
@@ -160,3 +158,6 @@ services:
 
 # To connect to producer mode:➡️ docker exec -it kafka-producer kafkacat -P -b kafka:9092 -t testtopic
 # To connect to consumer mode:➡️ docker exec -it kafka-consumer kafkacat -C -b kafka:9092 -t testtopic -o end -f 'Partition: %p | Offset: %o | Timestamp: %T | Message: %s\n' -q
+
+# To consume all messages from a topic:
+# docker exec -it kafka kafka-console-consumer --bootstrap-server kafka:9092 --topic testtopic --from-beginning --timeout-ms 5000

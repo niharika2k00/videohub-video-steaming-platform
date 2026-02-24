@@ -2,7 +2,6 @@ package com.application.springboot.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.annotation.TopicPartition;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,7 +14,8 @@ public class KafkaConsumerService {
     this.emailSenderService = emailSenderService;
   }
 
-  @KafkaListener(topics = "email-notification", groupId = "group1", concurrency = "2", topicPartitions = {@TopicPartition(topic = "email-notification", partitions = {"0", "1"})})
+  // this topic has 4 partitions (KAFKA_NUM_PARTITIONS in docker-compose.yml)
+  @KafkaListener(topics = "email-notification", groupId = "group1", concurrency = "2")
   public void listenToTopic(String payload) throws Exception {
     System.out.println("Consumed message from topic email-notification ✨✨");
     emailSenderService.sendEmail(payload);
