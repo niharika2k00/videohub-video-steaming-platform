@@ -4,7 +4,7 @@
 
 # Video files
 videos/
-sample videos/
+# sample videos/
 
 # IDE files
 .idea/
