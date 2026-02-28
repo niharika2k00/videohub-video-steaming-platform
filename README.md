@@ -50,10 +50,10 @@ A full-stack microservices-based video streaming platform built with React.js fr
 - **User Management**: Sign up with profile image, bio, location, age, gender and phone. Editable profile, personal video dashboard.
 - **Production-Ready Infrastructure**: Complete Docker Compose setup with MySQL, Kafka, and Nginx
 
-## 🏗️ Architecture
+## 🏗️ System Architecture
 
 <details>
-   <summary><span style="font-size: 1rem; font-weight: bold">📐 System Architecture Diagram</span></summary>
+   <summary><span style="font-size: 1rem; font-weight: bold">📐 High-Level Architecture Overview</span></summary>
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────────┐
@@ -144,7 +144,12 @@ A full-stack microservices-based video streaming platform built with React.js fr
 
 </details>
 
-## 🎬 Video Processing Pipeline
+## 🔀 Sequence Diagrams
+
+<details>
+   <summary><span style="font-size: 1rem; font-weight: bold">🎬 Video Processing & Email Notification Flows</span></summary>
+
+#### Video Processing Pipeline
 
 ```mermaid
 sequenceDiagram
@@ -199,7 +204,12 @@ sequenceDiagram
     SMTP-->>User: Welcome email delivered
 ```
 
+</details>
+
 ## 📦 Class Diagram
+
+<details>
+   <summary><span style="font-size: 1rem; font-weight: bold">🗂️ Entity Relationship Diagram</span></summary>
 
 ```mermaid
 classDiagram
@@ -297,13 +307,15 @@ classDiagram
     User --> GenderType : gender
 ```
 
+</details>
+
 ## 🛠️ Tech Stack
 
 - 🖥️ **Frontend**: React.js 19, Vite, Tailwind CSS, Video.js (HLS), React Router v7, React Hook Form, Zod, Radix UI, Axios, React Toastify, Google Analytics.
 - ⚙️ **Backend**: Java 17, Spring Boot 3.4.1, Spring Security (JWT), Spring Data JPA, Spring Kafka, Spring Mail, FFmpeg, Thumbnailator, AWS SDK v2.
 - 🗄️ **Database**: MySQL 9.0 with HikariCP connection pooling.
 - 📨 **Message Broker**: Apache Kafka 7.9.4 with Zookeeper.
-- ☁️ **Cloud**: AWS S3 (video storage), Cloudflare (DNS/CDN).
+- ☁️ **Cloud**: AWS S3, Cloudflare (DNS/CDN).
 - 🐳 **DevOps**: Docker, Docker Compose, Nginx reverse proxy, multi-platform builds (linux/amd64 + linux/arm64), Nginx Proxy Manager (SSL).
 
 ## 📂 Project Structure
@@ -357,56 +369,9 @@ video-hub/
 
 3. **Environment Setup**
 
-   Create a `.env` file in the `backend/` directory:
+   Both `backend/.env` and `frontend/.env` are included in the repo with dummy values. Update them with your own credentials before running the application.
 
-   ```env
-   # Database
-   SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/videohub
-   DATABASE_USERNAME=root
-   DATABASE_PASSWORD=pwroot
-
-   # Kafka
-   SPRING_KAFKA_BOOTSTRAP_SERVERS=localhost:9093
-
-   # AWS S3
-   AWS_PROFILE=default
-   AWS_DEFAULT_REGION=us-east-1
-   AWS_ACCESS_KEY_ID=your_access_key
-   AWS_SECRET_ACCESS_KEY=your_secret_key
-   AWS_S3_BUCKET_NAME=your_bucket_name
-
-   # File paths
-   CUSTOM_PATH_PROJECT_ROOT_DIR=.
-   CUSTOM_PATH_SOURCE_VIDEO_DIR=./videos
-
-   # FFmpeg
-   FFMPEG_PATH=/usr/bin/ffmpeg
-   FFPROBE_PATH=/usr/bin/ffprobe
-
-   # Email
-   EMAIL_SENDER_EMAIL=your_email@gmail.com
-   ```
-
-4. **Frontend Environment Setup**
-
-   Create a `.env` file in the `frontend/` directory:
-
-   ```env
-   # Application
-   VITE_APP_NAME=VideoHub
-
-   # Development
-   VITE_APP_ENV=development
-   VITE_BACKEND_SERVER_URL=http://localhost:4040
-   # Production
-   VITE_APP_ENV=production
-   VITE_BACKEND_SERVER_URL=https://your-domain.com
-
-   # Google Analytics (optional)
-   REACT_APP_GA_MEASUREMENT_ID=your_ga_measurement_id
-   ```
-
-5. **Install frontend dependencies**
+4. **Install frontend dependencies**
 
    ```bash
    cd frontend
@@ -516,13 +481,15 @@ docker pull niharikadutta/email-service:v0.0.1
 
 ## 👨‍💻 Author
 
-**Niharika Dutta**
+Niharika Dutta
 
-- [GitHub](https://github.com/niharika2k00)
-- [LinkedIn](https://www.linkedin.com/in/niharika2k00/)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white)](https://github.com/niharika2k00)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/niharika2k00/)
 
-If you found this project helpful, please give it a star⭐ !
+If you found this project helpful, please consider giving it a star ⭐️ !
+
 
 ## 📚 References
-- https://howvideo.works/#playback
-- https://bytebytego.com/courses/system-design-interview/design-youtube
+
+- [How Video Works — Playback](https://howvideo.works/#playback)
+- [System Design Interview — Design YouTube](https://bytebytego.com/courses/system-design-interview/design-youtube)
