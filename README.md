@@ -4,7 +4,7 @@ A full-stack microservices-based video streaming platform built with React.js fr
 
 ## 🌐 Live Demo
 
-- **Website**: https://videohub.raspberryip.com/
+**Website**: https://videohub.raspberryip.com/
 
 ## 📸 Screenshots
 
@@ -199,20 +199,112 @@ sequenceDiagram
     SMTP-->>User: Welcome email delivered
 ```
 
+## 📦 Class Diagram
+
+```mermaid
+classDiagram
+    direction TB
+
+    class User {
+        -int id
+        -String name
+        -String email
+        -String password
+        -String profileImage
+        -String age
+        -GenderType gender
+        -String location
+        -String bio
+        -String phoneNumber
+        -Set~Role~ roles
+    }
+
+    class Role {
+        -int id
+        -String roleName
+        -Set~User~ users
+    }
+
+    class Video {
+        -int id
+        -int authorId
+        -String title
+        -String description
+        -String category
+        -String thumbnailUrl
+        -String uploadedAt
+        -String videoDirectoryPath
+        -StorageType storageType
+        -Set~VideoVariant~ videoVariantList
+    }
+
+    class VideoVariant {
+        -VideoVariantId id
+        -Video video
+        -int height
+        -int width
+        -VideoStatus status
+    }
+
+    class VideoVariantId {
+        &lt;&lt;Embeddable&gt;&gt;
+        -int videoId
+        -VideoResolution resolution
+        +equals(Object) boolean
+        +hashCode() int
+    }
+
+    class VideoStatus {
+        &lt;&lt;enum&gt;&gt;
+        PENDING
+        PROCESSING
+        AVAILABLE
+        FAILED
+    }
+
+    class VideoResolution {
+        &lt;&lt;enum&gt;&gt;
+        P240
+        P360
+        P480
+        P720
+        P1080
+        -String label
+        +fromLabel(String) VideoResolution
+    }
+
+    class StorageType {
+        &lt;&lt;enum&gt;&gt;
+        LOCAL
+        AWS_S3
+        CLOUDINARY
+    }
+
+    class GenderType {
+        &lt;&lt;enum&gt;&gt;
+        MALE
+        FEMALE
+        PREFER_NOT_TO_SAY
+    }
+
+    User "* " -- "* " Role : ManyToMany(user_role join table)
+    Video "1" -- "*" VideoVariant : OneToMany
+    VideoVariant "*" --> "1" Video : ManyToOne
+    VideoVariant *-- VideoVariantId : composite PK
+    VideoVariantId --> VideoResolution : resolution
+    VideoVariant --> VideoStatus : status
+    Video --> StorageType : storageType
+    User --> GenderType : gender
+```
+
 ## 🛠️ Tech Stack
 
-🖥️ **Frontend**: React.js 19, Vite, Tailwind CSS, Video.js (HLS), React Router v7, React Hook Form, Zod, Radix UI, Axios, React Toastify, Google Analytics.
-
-⚙️ **Backend**: Java 17, Spring Boot 3.4.1, Spring Security (JWT), Spring Data JPA, Spring Kafka, Spring Mail, FFmpeg, Thumbnailator, AWS SDK v2.
-
-🗄️ **Database**: MySQL 9.0 with HikariCP connection pooling.
-
-📨 **Message Broker**: Apache Kafka 7.9.4 with Zookeeper.
-
-☁️ **Cloud**: AWS S3 (video storage), Cloudflare (DNS/CDN).
-
-🐳 **DevOps**: Docker, Docker Compose, Nginx reverse proxy, multi-platform builds (linux/amd64 + linux/arm64), Nginx Proxy Manager (SSL).
-
+- 🖥️ **Frontend**: React.js 19, Vite, Tailwind CSS, Video.js (HLS), React Router v7, React Hook Form, Zod, Radix UI, Axios, React Toastify, Google Analytics.
+- ⚙️ **Backend**: Java 17, Spring Boot 3.4.1, Spring Security (JWT), Spring Data JPA, Spring Kafka, Spring Mail, FFmpeg, Thumbnailator, AWS SDK v2.
+- 🗄️ **Database**: MySQL 9.0 with HikariCP connection pooling.
+- 📨 **Message Broker**: Apache Kafka 7.9.4 with Zookeeper.
+- ☁️ **Cloud**: AWS S3 (video storage), Cloudflare (DNS/CDN).
+- 🐳 **DevOps**: Docker, Docker Compose, Nginx reverse proxy, multi-platform builds (linux/amd64 + linux/arm64), Nginx Proxy Manager (SSL).
 
 ## 📂 Project Structure
 
@@ -306,16 +398,12 @@ video-hub/
    # Development
    VITE_APP_ENV=development
    VITE_BACKEND_SERVER_URL=http://localhost:4040
+   # Production
+   VITE_APP_ENV=production
+   VITE_BACKEND_SERVER_URL=https://your-domain.com
 
    # Google Analytics (optional)
    REACT_APP_GA_MEASUREMENT_ID=your_ga_measurement_id
-   ```
-
-   For production, change to:
-
-   ```env
-   VITE_APP_ENV=production
-   VITE_BACKEND_SERVER_URL=https://your-domain.com
    ```
 
 5. **Install frontend dependencies**
@@ -325,7 +413,7 @@ video-hub/
    npm install
    ```
 
-5. **Build the backend**
+6. **Build the backend**
 
    ```bash
    cd backend
