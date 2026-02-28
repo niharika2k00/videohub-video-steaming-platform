@@ -103,8 +103,8 @@ A full-stack microservices-based video streaming platform built with React.js fr
                    │  240p  ─► consumer group1│  │  Kafka Consumer      │
                    │  360p  ─► consumer group2│  │  Spring Mail (SMTP)  │
                    │  480p  ─► consumer group3│  │  Markdown Templates  │
-                   │  720p  ─► consumer group3│  │                      │
-                   │  1080p ─► consumer group3│  │  • Welcome Email     │
+                   │  720p  ─► consumer group4│  │                      │
+                   │  1080p ─► consumer group5│  │  • Welcome Email     │
                    │                          │  │  • Contact ACK       │
                    │  FFmpeg Transcoding      │  │  • Notifications     │
                    │  HLS Segmentation (.ts)  │  └──────────────────────┘
@@ -112,18 +112,26 @@ A full-stack microservices-based video streaming platform built with React.js fr
                    └────────────┬─────────────┘
                                 │
                                 ▼
-                   ┌──────────────────────────┐
-                   │        AWS S3            │
-                   │                          │
-                   │  /videos/{userId}/       │
-                   │    └── {videoId}/        │
-                   │        ├── master.m3u8   │
-                   │        ├── 240p/         │
-                   │        ├── 360p/         │
-                   │        ├── 480p/         │
-                   │        ├── 720p/         │
-                   │        └── 1080p/        │
-                   └──────────────────────────┘
+                   ┌─────────────────────────────────── ┐
+                   │            AWS S3                  │
+                   │                                    │
+                   │  videos/{userId}/{videoId}/        │
+                   │    ├── master.m3u8                 │
+                   │    ├── thumbnail.jpg               │
+                   │    ├── manifests/                  │
+                   │    │   ├── rendition_240p.m3u8     │
+                   │    │   ├── rendition_360p.m3u8     │
+                   │    │   └── ...                     │
+                   │    └── segments/                   │
+                   │        ├── 240p/                   │
+                   │        │   ├── 00001.ts            │
+                   │        │   ├── 00002.ts            │
+                   │        │   └── ...                 │
+                   │        ├── 720p/                   │
+                   │        │   └── ...                 │
+                   │        └── 1080p/                  │
+                   │            └── ...                 │
+                   └─────────────────────────────────── ┘
 ```
 
 ### Microservices
