@@ -90,7 +90,7 @@ services:
   #       while true; do
   #         echo "Cleanup scheduled for" \$(date -d '+24 hours');
   #         sleep 86400;  # Wait 24 hours
-  #         echo "Starting cleanup at" \$(date);
+  #         echo "Starting cleanup at at $(date)";
 
   #         # Stop containers gracefully
   #         docker stop kafka zookeeper;

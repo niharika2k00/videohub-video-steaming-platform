@@ -17,9 +17,17 @@ spring:
       max-file-size: 200MB
       max-request-size: 200MB
   datasource:
-    url: ${SPRING_DATASOURCE_URL} # "3.140.188.132:3306" JDBC URL of the database
+    url: ${SPRING_DATASOURCE_URL}  # "3.140.188.132:3306" JDBC URL of the database
     username: ${DATABASE_USERNAME} # creds for database connection
     password: ${DATABASE_PASSWORD}
+    hikari:
+      connection-timeout: 30000       # 30s to acquire a connection
+      idle-timeout: 600000            # 10 min - close idle connections before MySQL kills them
+      max-lifetime: 1800000           # 30 min - retire connections before MySQL's wait_timeout (8h)
+      keepalive-time: 300000          # 5 min - ping idle connections to keep them alive
+      minimum-idle: 2
+      maximum-pool-size: 10
+      connection-test-query: SELECT 1  # validate connection before use
   jpa:
     hibernate:
       ddl-auto: update
@@ -58,12 +66,12 @@ custom:
   endpoints:
     server:
       local: "http://localhost:4040"
-      staging: "http://18.219.151.181:4040"
-      # production: "http://18.219.151.181:4040"
+      staging: "http://115.187.34.234:4040"
+      # production: "https://videohub.raspberryip.com/"
     client:
       local: "http://localhost:5173" # frontend base endpoint
-      # staging: "http://18.219.151.181:5173"
-      # production: "http://18.219.151.181:4040"
+      # staging: "http://115.187.34.234:5173"
+      # production: "https://videohub.raspberryip.com/"
   path:
     project-root-dir: ${CUSTOM_PATH_PROJECT_ROOT_DIR}
     source-video-dir: ${CUSTOM_PATH_SOURCE_VIDEO_DIR}

@@ -8,16 +8,19 @@ services:
   main-application:
     container_name: main-application
     image: niharikadutta/main-application:v0.0.1
-    restart: always
+    # restart: unless-stopped
+    # mem_limit: 520m # for UseContainerSupport in dockerfile
     ports:
       - "4040:4040"
     volumes: # bind mount
-      - ./videos:/app/videos
       - ./config/main-application/application.yml:/app/config/application.yml:ro # host_path : container_path
+      - ./videos:/app/videos
       - ~/.aws:/root/.aws:ro # mount aws credentials
     command: ["--spring.config.location=file:/app/config/application.yml"]
     env_file:
       - .env
+    # environment:
+    #   - SPRING_PROFILES_ACTIVE=docker # for loading application-docker.yml config
     networks:
       - videohub-network
       - prod_network
@@ -25,7 +28,7 @@ services:
   processor-service-240p:
     container_name: processor-service-240p
     image: niharikadutta/processor-service:v0.0.1
-    restart: always
+    # restart: unless-stopped
     # profiles: ["240p"]
     volumes:
       - ./videos:/app/videos
@@ -56,7 +59,7 @@ services:
   processor-service-360p:
     container_name: processor-service-360p
     image: niharikadutta/processor-service:v0.0.1
-    restart: always
+    # restart: unless-stopped
     # profiles: ["360p"]
     volumes:
       - ./videos:/app/videos
@@ -74,7 +77,7 @@ services:
   processor-service-480p:
     container_name: processor-service-480p
     image: niharikadutta/processor-service:v0.0.1
-    restart: always
+    # restart: unless-stopped
     # profiles: ["480p"]
     volumes:
       - ./videos:/app/videos
@@ -92,7 +95,7 @@ services:
   processor-service-720p:
     container_name: processor-service-720p
     image: niharikadutta/processor-service:v0.0.1
-    restart: always
+    # restart: unless-stopped
     # profiles: ["720p"]
     volumes:
       - ./videos:/app/videos
@@ -110,7 +113,7 @@ services:
   processor-service-1080p:
     container_name: processor-service-1080p
     image: niharikadutta/processor-service:v0.0.1
-    restart: always
+    # restart: unless-stopped
     # profiles: ["1080p"]
     volumes:
       - ./videos:/app/videos
@@ -128,9 +131,13 @@ services:
   email-service:
     container_name: email-service
     image: niharikadutta/email-service:v0.0.1
-    restart: always
+    # restart: unless-stopped
     volumes:
       - ./config/email-service/application.yml:/app/config/application.yml:ro
+    env_file:
+      - .env
+    networks:
+      - videohub-network
     # If email-service has an HTTP port too, publish a different host port
     # ports:
     #   - "4041:4040"

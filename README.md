@@ -136,12 +136,12 @@ A full-stack microservices-based video streaming platform built with React.js fr
 
 ### Microservices
 
-| Service | Responsibility | Memory |
-|---------|---------------|--------|
-| **Main Application** | REST API, JWT auth, video upload, serves static frontend | 512 MB |
-| **Processor Service ×5** | FFmpeg transcoding to 5 resolutions (240p–1080p), HLS segment generation | 384 MB each |
-| **Email Service** | Transactional emails — welcome, contact acknowledgement, notifications | 256 MB |
-| **Core Utils** | Shared library — JPA entities, repositories, utilities (non-deployable) | — |
+| Service | Responsibility |
+|---------|---------------|
+| **Main Application** | REST API, JWT auth, video upload, serves static frontend |
+| **Processor Service ×5** | FFmpeg transcoding to 5 resolutions (240p–1080p), HLS segment generation |
+| **Email Service** | Transactional emails — welcome, contact acknowledgement, notifications |
+| **Core Utils** | Shared library — JPA entities, repositories, utilities (non-deployable) |
 
 ### Kafka Topics
 
@@ -338,7 +338,7 @@ video-hub/
 ├── backend/
 │   ├── core-utils/                  # Shared library (entities, services, utilities)
 │   ├── main-application/            # REST API + auth + video upload
-│   ├── processor-service/           # FFmpeg transcoding + HLS generation
+│   ├── processor-service/           # FFmpeg transcoding (240p–1080p) + HLS generation
 │   └── email-service/               # Email notifications via SMTP
 ├── deployment/
 │   ├── docker-deploy/               # Production docker-compose + .env

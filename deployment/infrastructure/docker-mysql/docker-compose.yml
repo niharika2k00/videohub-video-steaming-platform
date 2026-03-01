@@ -30,5 +30,5 @@ volumes:
     driver: local
 
 # volumes: stores all mysql database files and data
-# 18.219.151.181:3307 when accessing from outside EC2 instance (docker running in EC2)
+# port 18.219.151.181:3307 when accessing from outside EC2 instance (docker running in EC2)
 # docker network create videohub-network

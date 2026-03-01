@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: Spring Boot Java Project (Email Service)
+  main:
+    banner-mode: off
+    web-application-type: none # disable web server
+  jpa:
+    hibernate:
+      ddl-auto: update
+  kafka:
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS}
+
+logging:
+  level:
+    root: warn
+
+# Custom environment variables
+custom:
+  email: ${EMAIL_SENDER_EMAIL}
