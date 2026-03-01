@@ -501,3 +501,4 @@ If you found this project helpful, please consider giving it a star ⭐️ !
 
 - [How Video Works — Playback](https://howvideo.works/#playback)
 - [System Design Interview — Design YouTube](https://bytebytego.com/courses/system-design-interview/design-youtube)
+- https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/beans/BeanUtils.html

@@ -59,6 +59,7 @@ public class S3StorageSyncService implements CloudStorageSyncService {
     }
   }
 
+  // https://videohub.raspberryip.com/s01/video/1/12/master.m3u8 should redirect to https://<bucket>.s3.us-east-1.amazonaws.com/videos/1/12/master.m3u8
   // local path (docker): /app/videos/1/14
   // remote path: s3://<bucket_name>/videos/1/14
   @Override
@@ -75,7 +76,7 @@ public class S3StorageSyncService implements CloudStorageSyncService {
           remotePath,
           "--region", awsRegion
         //  "--profile", awsProfile
-      );
+          );
 
       // processBuilder.inheritIO(); // Optional: To print output to console
       Process process = processBuilder.start();
