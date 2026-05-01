@@ -1,8 +1,8 @@
 import { defineConfig } from "vite";
-import tailwindcss from "@tailwindcss/vite";
-import react from "@vitejs/plugin-react";
-import path from "path";
 import dotenv from "dotenv";
+import path from "path";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 
 // load environment variables from .env file
 dotenv.config();
